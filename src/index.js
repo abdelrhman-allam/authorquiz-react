@@ -54,8 +54,8 @@ function getTrunData() {
   });
 
   const fourRandomBooks = allBooks.slice(0, 4);
-  console.log(fourRandomBooks);
-  const answer = fourRandomBooks[Math.floor(Math.random(0, fourRandomBooks.length))];
+
+  const answer = fourRandomBooks[Math.floor(Math.random() * fourRandomBooks.length)];
   const author = authors.find((qAuthor) =>
     qAuthor.books.some((title) => title == answer)
   );
@@ -68,16 +68,25 @@ function getTrunData() {
 }
 
 const state = {
-  turnData: getTrunData()
+  turnData: getTrunData(),
+  highlight: ''
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <AuthorQuize {...state} />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function onAnswerSelected(answer) {
+  const isCorrect = state.turnData.author.books.some((book) => book === answer);
+  state.highlight = isCorrect ? 'correct' : 'wrong';
+  render();
+}
+function render() {
+  ReactDOM.render(
+    <React.StrictMode>
+      <AuthorQuize {...state} onAnswerSelected={onAnswerSelected} />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
 
+render();
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
