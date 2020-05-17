@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import AuthorQuize from './AuthorQuize';
+import AuthorQuiz from './AuthorQuiz';
 import * as serviceWorker from './serviceWorker';
 // inmport shuffle from 'underscore';
 
@@ -80,7 +80,7 @@ function onAnswerSelected(answer) {
 function render() {
   ReactDOM.render(
     <React.StrictMode>
-      <AuthorQuize {...state} onAnswerSelected={onAnswerSelected} />
+      <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
     </React.StrictMode>,
     document.getElementById('root')
   );

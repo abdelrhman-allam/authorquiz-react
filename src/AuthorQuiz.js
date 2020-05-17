@@ -71,7 +71,7 @@ function Footer(){
   );
 }
 
-function AuthorQuize({turnData, highlight, onAnswerSelected}) {
+function AuthorQuiz({turnData, highlight, onAnswerSelected}) {
   return (
     <div className="container-fluid">
       <Hero />
@@ -82,4 +82,4 @@ function AuthorQuize({turnData, highlight, onAnswerSelected}) {
   );
 }
 
-export default AuthorQuize;
+export default AuthorQuiz;
