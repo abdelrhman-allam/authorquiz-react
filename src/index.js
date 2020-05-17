@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import AuthorQuize from './AuthorQuize';
 import * as serviceWorker from './serviceWorker';
+
+const authors = [
+  {
+    name: "Mar Twain",
+    imageUrl: "/images/authors/marktwain.jpg",
+    imageSource: "Wikimedia Commons",
+    books: ['The Adventures of Huckleberry Finn']
+  }
+]
+
+const state = {
+  turnData: {
+    author: authors[0],
+    books: author[0].books
+  }
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthorQuize />
   </React.StrictMode>,
   document.getElementById('root')
 );
