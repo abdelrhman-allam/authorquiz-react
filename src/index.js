@@ -3,26 +3,77 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import AuthorQuize from './AuthorQuize';
 import * as serviceWorker from './serviceWorker';
+// inmport shuffle from 'underscore';
 
 const authors = [
   {
-    name: "Mar Twain",
+    name: "MarK Twain",
     imageUrl: "/images/authors/marktwain.jpg",
     imageSource: "Wikimedia Commons",
-    books: ['The Adventures of Huckleberry Finn']
+    books: [
+      'The Adventures of Huckleberry Finn',
+    ]
+  },
+  {
+    name: "J.K. Rowling",
+    imageUrl: "/images/authors/jkrowling.jpg",
+    imageSource: "Wikimedia Commons",
+    books: [
+      'Harray Potter and the Goblet of Fire',
+      'Harray Potter and the Champer of Secrets',
+    ]
+  },
+  {
+    name: "William Shakspeare",
+    imageUrl: "/images/authors/williamshakespeare.jpg",
+    imageSource: "Wikimedia Commons",
+    books: [
+      'Hamlet', 'Macbeth', 'Romeo and Juliet'
+    ]
+  },
+  {
+    name: "Joseph Conrad",
+    imageUrl: "/images/authors/josephconrad.jpg",
+    imageSource: "Wikimedia Commons",
+    books: [
+      'Heart of Darkness'
+    ]
   }
-]
+];
+
+
+function getTrunData() {
+  const allBooks = authors.reduce(function (p, c, i) {
+    return p.concat(c.books);
+  }, []);
+
+  allBooks.forEach((a, i, all) => {
+    const r = Math.floor((Math.random() * (all.length - i)) + i);
+    allBooks[i] = allBooks[r];
+    allBooks[r] = a;
+  });
+
+  const fourRandomBooks = allBooks.slice(0, 4);
+  console.log(fourRandomBooks);
+  const answer = fourRandomBooks[Math.floor(Math.random(0, fourRandomBooks.length))];
+  const author = authors.find((qAuthor) =>
+    qAuthor.books.some((title) => title == answer)
+  );
+
+  return {
+    books: fourRandomBooks,
+    author: author,
+    answer: answer
+  }
+}
 
 const state = {
-  turnData: {
-    author: authors[0],
-    books: author[0].books
-  }
+  turnData: getTrunData()
 }
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthorQuize />
+    <AuthorQuize {...state} />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -3,7 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import './bootstrap.min.css'
 
+function Book({title}){
+  return (<div className="answer">
+    <h4>{title}</h4>
 
+  </div>
+  )
+}
 function Hero(){
   return (
     <div className='row'>
@@ -20,10 +26,10 @@ function Hero(){
 function Turn({author, books}){
   return (<div className='row turn' style={{backgroundColor: 'white'}}>
     <div className='col-4 offset-1'> 
-    <img src={ author.imageUrl} className="authorImage" alt="author" />\
+    <img src={ author.imageUrl} className="authorImage" alt="author" />
     </div>
     <div className="col-6">
-      { books.map((title) => <p>{title}</p>)}
+      { books.map((title) => <Book title={title} key={title} />)}
     </div>
   </div>)
 }
@@ -44,11 +50,11 @@ function Footer(){
   );
 }
 
-function AuthorQuize() {
+function AuthorQuize({turnData}) {
   return (
     <div className="container-fluid">
       <Hero />
-      <Turn />
+      <Turn {...turnData}/>
       <Continue />
       <Footer />
     </div>
