@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link }  from 'react-router-dom'
 import PropTypes from 'prop-types'
 import logo from './logo.svg';
 import './App.css';
@@ -64,7 +65,7 @@ function Footer(){
     <div id="footer" className="row">
       <div className="col-12">
         <p className="text-muted credit">
-          All Images From 
+          All Images From <a href="wikimedia.com">wikimedia commons</a>
         </p>
       </div>
       </div>
@@ -77,6 +78,7 @@ function AuthorQuiz({turnData, highlight, onAnswerSelected}) {
       <Hero />
       <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected}/>
       <Continue />
+      <p><Link to="/add">Add an Author</Link></p>
       <Footer />
     </div>
   );

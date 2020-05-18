@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
 import * as serviceWorker from './serviceWorker';
@@ -77,13 +78,32 @@ function onAnswerSelected(answer) {
   state.highlight = isCorrect ? 'correct' : 'wrong';
   render();
 }
-function render() {
-  ReactDOM.render(
+
+function App() {
+  return ReactDOM.render(
     <React.StrictMode>
-      <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
+      <Router>
+        <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
+      </Router>
     </React.StrictMode>,
     document.getElementById('root')
   );
+}
+
+function AddAuthorForm({ match }) {
+  return (<div>
+    <h1>Add Author</h1>
+    <p>{JSON.stringify(match)}</p>
+  </div>)
+}
+
+function render() {
+  ReactDOM.render(
+    <Router>
+      <Route exact path="/" component={App} />
+      <Route path="/add" component={AddAuthorForm} />
+    </Router>
+    , document.getElementById('root'));
 }
 
 render();

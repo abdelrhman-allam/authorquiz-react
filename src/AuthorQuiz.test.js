@@ -24,7 +24,7 @@ const state = {
 }
 
 describe('Author Quize', () => {
-  it('render without crashing', () => {
+  it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<AuthorQuiz {...state} onAnswerSelected={() => { }} />, div);
   })
