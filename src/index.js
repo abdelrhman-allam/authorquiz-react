@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
 import * as serviceWorker from './serviceWorker';
@@ -80,14 +80,7 @@ function onAnswerSelected(answer) {
 }
 
 function App() {
-  return ReactDOM.render(
-    <React.StrictMode>
-      <Router>
-        <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
-      </Router>
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+  return <AuthorQuiz {...state} onAnswerSelected={onAnswerSelected} />
 }
 
 function AddAuthorForm({ match }) {
@@ -100,8 +93,11 @@ function AddAuthorForm({ match }) {
 function render() {
   ReactDOM.render(
     <Router>
+      <React.Fragment>
       <Route exact path="/" component={App} />
       <Route path="/add" component={AddAuthorForm} />
+      </React.Fragment>
+      
     </Router>
     , document.getElementById('root'));
 }
