@@ -16,7 +16,7 @@ function Hero() {
     <div className='row'>
       <div className='jumbotron col-10 offset-1'>
         <h1>
-          Author Quize
+          Author Quiz
       </h1>
         <p>Select a book written by author shown</p>
       </div>
@@ -25,9 +25,9 @@ function Hero() {
 }
 
 function Turn({ author, books, highlight, onAnswerSelected }) {
-  console.log('highlight:', highlight);
   function highlightToBackground(highlight) {
     const mapping = {
+      '':'',
       'none': '',
       'correct': 'green',
       'wrong': 'red'
@@ -77,7 +77,7 @@ function Footer() {
   );
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     turnData: state.turnData,
     books: state.books,
@@ -85,29 +85,32 @@ function mapStateToProps(state){
   };
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   return {
     onAnswerSelected: (answer) => {
-      dispatch({type: 'ANSWER_SELECTED', answer}) // <-- here answer is dispatched to reducer
+      dispatch({ type: 'ANSWER_SELECTED', answer }) // <-- here answer is dispatched to reducer
     },
     onContinue: () => {
-      dispatch({'type': 'CONTINUE'})
+      dispatch({ 'type': 'CONTINUE' })
     }
   }
 }
 
-const AuthorQuiz = connect(mapStateToProps, mapDispatchToProps)(
-  function({ turnData, highlight, onAnswerSelected, onContinue }) {
-    return (
-      <div className="container-fluid">
-        <Hero />
-        <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected} />
-        <Continue show={highlight === 'correct'} onContinue={onContinue} />
-        <p><Link to="/add">Add an Author</Link></p>
-        <Footer />
-      </div>
-    );
+export default connect(mapStateToProps, mapDispatchToProps)(
+  function ({ turnData, highlight, onAnswerSelected, onContinue }) {
+    return AuthorQuiz({ turnData, highlight, onAnswerSelected, onContinue })
   }
 );
 
-export default AuthorQuiz;
+// Use named export for unconnected component (for tests)
+export function AuthorQuiz({ turnData, highlight, onAnswerSelected, onContinue }) {
+  return (
+    <div className="container-fluid">
+      <Hero />
+      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected} />
+      <Continue show={highlight === 'correct'} onContinue={onContinue} />
+      <p><Link to="/add">Add an Author</Link></p>
+      <Footer />
+    </div>
+  );
+}
