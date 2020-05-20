@@ -30,7 +30,7 @@ function setup(highlight) {
   const props = {
     onAnswerSelected: jest.fn()
   }
-  const enzymeWrapper = mount(<MemoryRouter><AuthorQuiz  {...Object.assign({}, state, {highlight: highlight})} {...props} /></MemoryRouter>)
+  const enzymeWrapper = mount(<MemoryRouter><AuthorQuiz  {...Object.assign({}, state, { highlight: highlight })} {...props} /></MemoryRouter>)
 
   return {
     props,
@@ -54,13 +54,13 @@ describe('Author Quiz', () => {
       expect(enzymeWrapper.find('h1').text()).toBe('Author Quiz');
     });
   });
-  
+
   describe('when no answer is selected', () => {
     let enzymeWrapper;
     beforeAll(() => {
       enzymeWrapper = setup("").enzymeWrapper;
     });
-   
+
     it('should have no background color', () => {
       expect(enzymeWrapper.find('div.row.turn').props().style.backgroundColor).toBe('');
     });
@@ -71,7 +71,7 @@ describe('Author Quiz', () => {
     beforeAll(() => {
       enzymeWrapper = setup("correct").enzymeWrapper;
     });
-   
+
     it('should have green background color', () => {
       expect(enzymeWrapper.find('div.row.turn').props().style.backgroundColor).toBe('green');
     });
@@ -82,11 +82,13 @@ describe('Author Quiz', () => {
     beforeAll(() => {
       enzymeWrapper = setup("wrong").enzymeWrapper;
     });
-   
+
     it('should have green background color', () => {
       expect(enzymeWrapper.find('div.row.turn').props().style.backgroundColor).toBe('red');
     });
   });
+
+
 });
 
 describe('Play Quiz', () => {
@@ -96,10 +98,10 @@ describe('Play Quiz', () => {
       onAnswerSelected: jest.fn()
     }
     beforeAll(() => {
-      enzymeWrapper = mount(<MemoryRouter><AuthorQuiz  {...Object.assign({}, state, {highlight: ''})} {...props} /></MemoryRouter>)
+      enzymeWrapper = mount(<MemoryRouter><AuthorQuiz  {...Object.assign({}, state, { highlight: '' })} {...props} /></MemoryRouter>)
       enzymeWrapper.find('.answer').first().simulate('click');
     });
-    
+
     it('onAnswerSelect should be called', () => {
       expect(props.onAnswerSelected).toHaveBeenCalled();
     });
@@ -107,5 +109,25 @@ describe('Play Quiz', () => {
     it('selected answer should be Hamlet', () => {
       expect(props.onAnswerSelected).toHaveBeenCalledWith('Hamlet');
     });
+  });
+
+  describe('when correct answer is selected', () => {
+    let enzymeWrapper;
+    const props = {
+      onAnswerSelected: jest.fn()
+    }
+    beforeAll(() => {
+      enzymeWrapper = mount(<MemoryRouter><AuthorQuiz  {...Object.assign({}, state, { highlight: '' })} {...props} /></MemoryRouter>)
+      enzymeWrapper.find('.answer').findWhere((e) => e.text() == 'Heart of Darkness').first().simulate('click');
+    });
+
+    it('onAnswerSelect should be called', () => {
+      expect(props.onAnswerSelected).toHaveBeenCalled();
+    });
+
+    it('selected answer should be Heart of Darkness', () => {
+      expect(props.onAnswerSelected).toHaveBeenCalledWith('Heart of Darkness');
+    });
+
   });
 })
